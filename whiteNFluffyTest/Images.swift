@@ -9,7 +9,7 @@ import Foundation
 
 class Images {
     static let shared = Images()
-    
+
     var photos = [Photo]()
     
     private init() {}
