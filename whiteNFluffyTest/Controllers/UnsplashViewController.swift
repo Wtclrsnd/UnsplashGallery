@@ -9,132 +9,132 @@ import UIKit
 import Kingfisher
 
 class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate {
-    
-    func update(photo: Photo) {
-//
-        
-        guard let idx = photos.firstIndex(where: { $0.url == photo.url })
-        else { return }
-        
-        photos[idx] = photo
-        
-//        let likedPhotos = photos.filter { $0.likedByUser ?? false }
-//        let vc = LikedImagesViewController()
-//        vc.likedPhotos = likedPhotos
-//        navigationController?.pushViewController(visi, animated: true)
-    }
-    
-    private let reusableIdentifier = "myCell"
-    
-    private lazy var photos = [Photo]() {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
-    
-    lazy var collectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        let width = UIScreen.main.bounds.width
-//        layout.sectionInset = UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20)
-//        layout.itemSize = CGSize(width: (width - 60) / 2, height: width / 2)
-//        layout.minimumInteritemSpacing = 10
-//        layout.minimumLineSpacing = 50
 
-        
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        
-        collectionView.allowsSelection = true
-        collectionView.isUserInteractionEnabled = true
-//        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.delegate = self
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.dataSource = self
-        
+	func update(photo: Photo) {
+		//
 
-        collectionView.register(UnsplashCollectionViewCell.self, forCellWithReuseIdentifier: reusableIdentifier)
-        
-        return collectionView
-    }()
-    
-    private func createLayout() -> UICollectionViewLayout {
-        let spacing: CGFloat = 27
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(200),
-            heightDimension: .absolute(250))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 30, leading: 40, bottom: spacing, trailing: 15)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalWidth(0.5))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupUI()
-        getPhotos()
-        
-        collectionView.reloadData()
-    }
-    
-    private func setupUI() {
-        view.addSubview(collectionView)
-    }
-    
-    private func getPhotos(){
-        let mainURL = "https://api.unsplash.com/photos?client_id="
-        let key = "x1rXThIwhUY7c9oK5HK9xQSO_TiW0NDwjQfhLRkrf6U"
-        DispatchQueue.main.async {
-            guard let url = URL(string: mainURL + key) else { return }
-            let request = URLRequest(url: url)
+		guard let idx = photos.firstIndex(where: { $0.url == photo.url })
+		else { return }
 
-            UnsplashAPI.getRandomPhoto(request: request, completion: { gotPhotos in
-                Images.shared.photos = gotPhotos
-                self.photos = Images.shared.photos
-            })
-        }
-        
-//        collectionView.reloadData()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
+		photos[idx] = photo
+
+		//        let likedPhotos = photos.filter { $0.likedByUser ?? false }
+		//        let vc = LikedImagesViewController()
+		//        vc.likedPhotos = likedPhotos
+		//        navigationController?.pushViewController(visi, animated: true)
+	}
+
+	private let reusableIdentifier = "myCell"
+
+	private lazy var photos = [Photo]() {
+		didSet {
+			collectionView.reloadData()
+		}
+	}
+
+	lazy var collectionView: UICollectionView = {
+		//        let layout = UICollectionViewFlowLayout()
+		//        layout.scrollDirection = .vertical
+		//        let width = UIScreen.main.bounds.width
+		//        layout.sectionInset = UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20)
+		//        layout.itemSize = CGSize(width: (width - 60) / 2, height: width / 2)
+		//        layout.minimumInteritemSpacing = 10
+		//        layout.minimumLineSpacing = 50
+
+
+		let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+
+		collectionView.allowsSelection = true
+		collectionView.isUserInteractionEnabled = true
+		//        collectionView.translatesAutoresizingMaskIntoConstraints = false
+		collectionView.delegate = self
+		collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		collectionView.dataSource = self
+
+
+		collectionView.register(UnsplashCollectionViewCell.self, forCellWithReuseIdentifier: reusableIdentifier)
+
+		return collectionView
+	}()
+
+	private func createLayout() -> UICollectionViewLayout {
+		let spacing: CGFloat = 27
+		let itemSize = NSCollectionLayoutSize(
+			widthDimension: .absolute(200),
+			heightDimension: .absolute(250))
+		let item = NSCollectionLayoutItem(layoutSize: itemSize)
+		item.contentInsets = .init(top: 30, leading: 40, bottom: spacing, trailing: 15)
+
+		let groupSize = NSCollectionLayoutSize(
+			widthDimension: .fractionalWidth(1.0),
+			heightDimension: .fractionalWidth(0.5))
+		let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+
+		let section = NSCollectionLayoutSection(group: group)
+		let layout = UICollectionViewCompositionalLayout(section: section)
+		return layout
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		setupUI()
+		getPhotos()
+
+		collectionView.reloadData()
+	}
+
+	private func setupUI() {
+		view.addSubview(collectionView)
+	}
+
+	private func getPhotos(){
+		let mainURL = "https://api.unsplash.com/photos?client_id="
+		let key = "x1rXThIwhUY7c9oK5HK9xQSO_TiW0NDwjQfhLRkrf6U"
+		DispatchQueue.main.async {
+			guard let url = URL(string: mainURL + key) else { return }
+			let request = URLRequest(url: url)
+
+			UnsplashAPI.getRandomPhoto(request: request, completion: { gotPhotos in
+				Images.shared.photos = gotPhotos
+				self.photos = Images.shared.photos
+			})
+		}
+
+		//        collectionView.reloadData()
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+	}
 }
 
 extension UnsplashViewController: UICollectionViewDelegate {
-    
+
 }
 
 extension UnsplashViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! UnsplashCollectionViewCell
-        cell.backgroundColor = .clear
-        let photoUrlString = photos[indexPath.row].url
-        guard let urlString = photoUrlString else { return cell }
-        let photoUrl = URL(string: urlString)
-        cell.photoImageView.kf.setImage(with: photoUrl)
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = photos[indexPath.row]
-        let vc = DetailPhotoViewController()
-        vc.delegate = self
-        vc.photo = photo
-        navigationController?.pushViewController(vc, animated: true)
-    }
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return photos.count
+	}
+
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! UnsplashCollectionViewCell
+		cell.backgroundColor = .clear
+		let photoUrlString = photos[indexPath.row].url
+		guard let urlString = photoUrlString else { return cell }
+		let photoUrl = URL(string: urlString)
+		cell.photoImageView.kf.setImage(with: photoUrl)
+		return cell
+	}
+
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let photo = photos[indexPath.row]
+		let vc = DetailPhotoViewController()
+		vc.delegate = self
+		vc.photo = photo
+		navigationController?.pushViewController(vc, animated: true)
+	}
 }
 
 

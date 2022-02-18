@@ -12,7 +12,7 @@ class UnsplashCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         return imageView
         }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         photoImageView.translatesAutoresizingMaskIntoConstraints = false
