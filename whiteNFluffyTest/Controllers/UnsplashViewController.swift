@@ -9,9 +9,7 @@ import UIKit
 import Kingfisher
 
 class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate {
-
 	func update(photo: Photo) {
-
 		guard let idx = photos.firstIndex(where: { $0.url == photo.url })
 		else { return }
 
@@ -20,7 +18,7 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 
 	private let reusableIdentifier = "myCell"
 
-	private lazy var photos = [Photo]() {
+	private lazy var photos: [Photo] = [] {
 		didSet {
 			collectionView.reloadData()
 		}
@@ -72,7 +70,7 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 		navigationController?.navigationBar.tintColor = .systemPink
 	}
 
-	private func getPhotos(){
+	private func getPhotos() {
 		let mainURL = "https://api.unsplash.com/photos?client_id="
 		let key = "x1rXThIwhUY7c9oK5HK9xQSO_TiW0NDwjQfhLRkrf6U"
 		DispatchQueue.main.async {
@@ -111,9 +109,9 @@ extension UnsplashViewController: UICollectionViewDataSource {
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let photo = photos[indexPath.row]
-		let vc = DetailPhotoViewController()
-		vc.delegate = self
-		vc.photo = photo
-		navigationController?.pushViewController(vc, animated: true)
+		let detailVC = DetailPhotoViewController()
+		detailVC.delegate = self
+		detailVC.photo = photo
+		navigationController?.pushViewController(detailVC, animated: true)
 	}
 }

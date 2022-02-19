@@ -20,7 +20,7 @@ class LikedImagesViewController: UIViewController {
 
 	private let reusableIdentifier = "myCell"
 
-	lazy var likedPhotos = [Photo]() {
+	lazy var likedPhotos: [Photo] = [] {
 		didSet {
 			collectionView.reloadData()
 		}
@@ -72,10 +72,9 @@ class LikedImagesViewController: UIViewController {
 }
 
 extension LikedImagesViewController: UICollectionViewDelegate {
-
 }
 
-extension LikedImagesViewController: UICollectionViewDataSource{
+extension LikedImagesViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return likedPhotos.count
 	}
@@ -92,12 +91,11 @@ extension LikedImagesViewController: UICollectionViewDataSource{
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let photo = likedPhotos[indexPath.row]
-		let vc = DetailPhotoViewController()
-		vc.delegate = self
-		vc.photo = photo
-		navigationController?.pushViewController(vc, animated: true)
+		let detailVC = DetailPhotoViewController()
+		detailVC.delegate = self
+		detailVC.photo = photo
+		navigationController?.pushViewController(detailVC, animated: true)
 	}
-
 }
 
 extension LikedImagesViewController: LikedImageViewControllerDelegate {

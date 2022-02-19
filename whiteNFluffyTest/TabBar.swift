@@ -8,7 +8,7 @@
 import UIKit
 
 class TabBar: UITabBarController {
-	
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = .systemBackground
