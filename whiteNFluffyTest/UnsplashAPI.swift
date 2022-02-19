@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class UnsplashAPI {
+enum UnsplashAPI {
 	static func getRandomPhoto(request: URLRequest, completion: @escaping (_ photos: [Photo]) -> Void) {
 		UnsplashAPI.makeGETRequest(request: request, completion: { photos in
 			DispatchQueue.main.async {
@@ -16,7 +16,7 @@ final class UnsplashAPI {
 		})
 	}
 
-	private class func makeGETRequest(request: URLRequest, completion: @escaping (_ photos: [Photo]) -> Void) {
+	static func makeGETRequest(request: URLRequest, completion: @escaping (_ photos: [Photo]) -> Void) {
 		URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
 			guard error == nil else {
 				print(String(describing: error?.localizedDescription))
