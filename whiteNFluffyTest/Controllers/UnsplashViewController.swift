@@ -11,17 +11,11 @@ import Kingfisher
 class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate {
 
 	func update(photo: Photo) {
-		//
 
 		guard let idx = photos.firstIndex(where: { $0.url == photo.url })
 		else { return }
 
 		photos[idx] = photo
-
-		//        let likedPhotos = photos.filter { $0.likedByUser ?? false }
-		//        let vc = LikedImagesViewController()
-		//        vc.likedPhotos = likedPhotos
-		//        navigationController?.pushViewController(visi, animated: true)
 	}
 
 	private let reusableIdentifier = "myCell"
@@ -33,24 +27,13 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 	}
 
 	lazy var collectionView: UICollectionView = {
-		//        let layout = UICollectionViewFlowLayout()
-		//        layout.scrollDirection = .vertical
-		//        let width = UIScreen.main.bounds.width
-		//        layout.sectionInset = UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20)
-		//        layout.itemSize = CGSize(width: (width - 60) / 2, height: width / 2)
-		//        layout.minimumInteritemSpacing = 10
-		//        layout.minimumLineSpacing = 50
-
-
 		let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
 
 		collectionView.allowsSelection = true
 		collectionView.isUserInteractionEnabled = true
-		//        collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.delegate = self
 		collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		collectionView.dataSource = self
-
 
 		collectionView.register(UnsplashCollectionViewCell.self, forCellWithReuseIdentifier: reusableIdentifier)
 
@@ -86,6 +69,7 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 
 	private func setupUI() {
 		view.addSubview(collectionView)
+		navigationController?.navigationBar.tintColor = .systemPink
 	}
 
 	private func getPhotos(){
@@ -100,8 +84,6 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 				self.photos = Images.shared.photos
 			})
 		}
-
-		//        collectionView.reloadData()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -110,7 +92,6 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 }
 
 extension UnsplashViewController: UICollectionViewDelegate {
-
 }
 
 extension UnsplashViewController: UICollectionViewDataSource {
@@ -136,5 +117,3 @@ extension UnsplashViewController: UICollectionViewDataSource {
 		navigationController?.pushViewController(vc, animated: true)
 	}
 }
-
-

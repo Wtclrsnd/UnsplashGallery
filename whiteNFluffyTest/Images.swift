@@ -8,9 +8,9 @@
 import Foundation
 
 class Images {
-    static let shared = Images()
+	static let shared = Images()
 
-    var photos = [Photo]()
-    
-    private init() {}
+	var photos = [Photo]()
+
+	private init() {}
 }

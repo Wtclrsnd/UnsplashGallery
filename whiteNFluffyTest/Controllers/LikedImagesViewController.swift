@@ -18,8 +18,6 @@ class LikedImagesViewController: UIViewController {
 		likedPhotos = photos
 	}
 
-
-
 	private let reusableIdentifier = "myCell"
 
 	lazy var likedPhotos = [Photo]() {
@@ -33,11 +31,9 @@ class LikedImagesViewController: UIViewController {
 
 		collectionView.allowsSelection = true
 		collectionView.isUserInteractionEnabled = true
-		//        collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		collectionView.delegate = self
 		collectionView.dataSource = self
-
 
 		collectionView.register(UnsplashCollectionViewCell.self, forCellWithReuseIdentifier: reusableIdentifier)
 
@@ -66,6 +62,7 @@ class LikedImagesViewController: UIViewController {
 		super.viewDidLoad()
 		view.addSubview(collectionView)
 		collectionView.frame = view.bounds
+		navigationController?.navigationBar.tintColor = .systemPink
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
