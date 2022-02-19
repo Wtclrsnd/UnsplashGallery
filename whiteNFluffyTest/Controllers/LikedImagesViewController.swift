@@ -18,11 +18,9 @@ class LikedImagesViewController: UIViewController {
 		likedPhotos = photos
 	}
 
-
-
 	private let reusableIdentifier = "myCell"
 
-	lazy var likedPhotos = [Photo]() {
+	lazy var likedPhotos: [Photo] = [] {
 		didSet {
 			collectionView.reloadData()
 		}
@@ -33,11 +31,9 @@ class LikedImagesViewController: UIViewController {
 
 		collectionView.allowsSelection = true
 		collectionView.isUserInteractionEnabled = true
-		//        collectionView.translatesAutoresizingMaskIntoConstraints = false
 		collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		collectionView.delegate = self
 		collectionView.dataSource = self
-
 
 		collectionView.register(UnsplashCollectionViewCell.self, forCellWithReuseIdentifier: reusableIdentifier)
 
@@ -66,6 +62,7 @@ class LikedImagesViewController: UIViewController {
 		super.viewDidLoad()
 		view.addSubview(collectionView)
 		collectionView.frame = view.bounds
+		navigationController?.navigationBar.tintColor = .systemPink
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -75,10 +72,9 @@ class LikedImagesViewController: UIViewController {
 }
 
 extension LikedImagesViewController: UICollectionViewDelegate {
-
 }
 
-extension LikedImagesViewController: UICollectionViewDataSource{
+extension LikedImagesViewController: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return likedPhotos.count
 	}
@@ -95,12 +91,11 @@ extension LikedImagesViewController: UICollectionViewDataSource{
 
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let photo = likedPhotos[indexPath.row]
-		let vc = DetailPhotoViewController()
-		vc.delegate = self
-		vc.photo = photo
-		navigationController?.pushViewController(vc, animated: true)
+		let detailVC = DetailPhotoViewController()
+		detailVC.delegate = self
+		detailVC.photo = photo
+		navigationController?.pushViewController(detailVC, animated: true)
 	}
-
 }
 
 extension LikedImagesViewController: LikedImageViewControllerDelegate {
