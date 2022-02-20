@@ -77,10 +77,10 @@ class UnsplashViewController: UIViewController, LikedImageViewControllerDelegate
 			guard let url = URL(string: mainURL + key) else { return }
 			let request = URLRequest(url: url)
 
-			UnsplashAPI.getRandomPhoto(request: request, completion: { gotPhotos in
+			UnsplashAPI.getRandomPhoto(request: request) { gotPhotos in
 				Images.shared.photos = gotPhotos
 				self.photos = Images.shared.photos
-			})
+			}
 		}
 	}
 
@@ -98,7 +98,9 @@ extension UnsplashViewController: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as? UnsplashCollectionViewCell else { return UICollectionViewCell() }
+		guard let cell = collectionView.dequeueReusableCell(
+			withReuseIdentifier: reusableIdentifier,
+			for: indexPath) as? UnsplashCollectionViewCell else { return UICollectionViewCell() }
 		cell.backgroundColor = .clear
 		let photoUrlString = photos[indexPath.row].url
 		guard let urlString = photoUrlString else { return cell }
