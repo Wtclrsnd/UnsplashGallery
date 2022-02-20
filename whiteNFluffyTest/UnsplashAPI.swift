@@ -9,15 +9,15 @@ import UIKit
 
 enum UnsplashAPI {
 	static func getRandomPhoto(request: URLRequest, completion: @escaping (_ photos: [Photo]) -> Void) {
-		UnsplashAPI.makeGETRequest(request: request, completion: { photos in
+		UnsplashAPI.makeGETRequest(request: request) { photos in
 			DispatchQueue.main.async {
 				completion(photos)
 			}
-		})
+		}
 	}
 
 	static func makeGETRequest(request: URLRequest, completion: @escaping (_ photos: [Photo]) -> Void) {
-		URLSession.shared.dataTask(with: request, completionHandler: { data, _, error in
+		URLSession.shared.dataTask(with: request) { data, _, error in
 			guard error == nil else {
 				print(String(describing: error?.localizedDescription))
 				return
@@ -44,7 +44,7 @@ enum UnsplashAPI {
 			} catch let error {
 				print(String(describing: error.localizedDescription))
 			}
-		})
+		}
 		.resume()
 	}
 }

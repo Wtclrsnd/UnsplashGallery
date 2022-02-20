@@ -80,7 +80,9 @@ extension LikedImagesViewController: UICollectionViewDataSource {
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableIdentifier, for: indexPath) as! UnsplashCollectionViewCell
+		guard let cell = collectionView.dequeueReusableCell(
+			withReuseIdentifier: reusableIdentifier,
+			for: indexPath) as? UnsplashCollectionViewCell else { return UICollectionViewCell() }
 		cell.backgroundColor = .clear
 		let photoUrlString = likedPhotos[indexPath.row].url
 		guard let urlString = photoUrlString else { return cell }

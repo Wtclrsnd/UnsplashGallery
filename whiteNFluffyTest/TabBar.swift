@@ -28,8 +28,14 @@ class TabBar: UITabBarController {
 
 	private func setupVCs() {
 		viewControllers = [
-			createNavController(for: UnsplashViewController(), title: "Unsplash", image: UIImage(systemName: "photo.circle") ?? UIImage()),
-			createNavController(for: LikedImagesViewController(), title: "Liked Images", image: UIImage(systemName: "heart.circle") ?? UIImage())
+			createNavController(
+				for: UnsplashViewController(),
+				title: "Unsplash",
+				image: UIImage(systemName: "photo.circle") ?? UIImage()),
+			createNavController(
+				for: LikedImagesViewController(),
+				title: "Liked Images",
+				image: UIImage(systemName: "heart.circle") ?? UIImage())
 		]
 	}
 }
